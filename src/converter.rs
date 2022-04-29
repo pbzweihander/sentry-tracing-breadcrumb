@@ -1,7 +1,7 @@
 use std::borrow::Borrow;
+use std::time::SystemTime;
 
 use sentry_core::protocol::{Map, Value};
-use sentry_core::types::Utc;
 use sentry_core::Breadcrumb;
 use tracing_core::{Event, Subscriber};
 use tracing_subscriber::layer::Context;
@@ -50,7 +50,7 @@ where
     }
 
     Breadcrumb {
-        timestamp: Utc::now(),
+        timestamp: SystemTime::now(),
         ty: "log".to_string(),
         category: Some(metadata.target().to_string()),
         level: level_to_level(metadata.level()),

@@ -34,7 +34,7 @@ impl<S> Layer<S> for SentryBreadcrumbLayer
 where
     S: Subscriber + for<'a> LookupSpan<'a>,
 {
-    fn new_span(&self, attrs: &Attributes<'_>, id: &Id, ctx: Context<'_, S>) {
+    fn on_new_span(&self, attrs: &Attributes<'_>, id: &Id, ctx: Context<'_, S>) {
         record_fields(attrs, id, ctx);
     }
 
