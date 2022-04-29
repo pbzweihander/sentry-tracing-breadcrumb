@@ -28,7 +28,7 @@ where
     fields.into()
 }
 
-pub fn event_to_breadcrumb<S>(event: &Event<'_>, ctx: Context<'_, S>) -> Option<Breadcrumb>
+pub fn event_to_breadcrumb<S>(event: &Event<'_>, ctx: Context<'_, S>) -> Breadcrumb
 where
     S: Subscriber + for<'a> LookupSpan<'a>,
 {
@@ -49,14 +49,12 @@ where
         data.insert("spans".to_string(), spans.into());
     }
 
-    let breadcrumb = Breadcrumb {
+    Breadcrumb {
         timestamp: Utc::now(),
         ty: "log".to_string(),
         category: Some(metadata.target().to_string()),
         level: level_to_level(metadata.level()),
         message,
         data,
-    };
-
-    Some(breadcrumb)
+    }
 }

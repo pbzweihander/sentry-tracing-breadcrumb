@@ -43,8 +43,7 @@ where
     }
 
     fn on_event(&self, event: &Event<'_>, ctx: Context<'_, S>) {
-        if let Some(breadcrumb) = event_to_breadcrumb(event, ctx) {
-            sentry_core::add_breadcrumb(breadcrumb);
-        }
+        let breadcrumb = event_to_breadcrumb(event, ctx);
+        sentry_core::add_breadcrumb(breadcrumb);
     }
 }
